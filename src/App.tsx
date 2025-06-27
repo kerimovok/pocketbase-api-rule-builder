@@ -1,16 +1,16 @@
 import {
-	BookOpen,
-	Check,
-	ChevronDown,
-	Code2,
-	Copy,
-	Database,
-	Plus,
-	Save,
-	Shield,
-	Sparkles,
-	Trash2,
-	X,
+    BookOpen,
+    Check,
+    ChevronDown,
+    Code2,
+    Copy,
+    Database,
+    Plus,
+    Save,
+    Shield,
+    Sparkles,
+    Trash2,
+    X,
 } from 'lucide-react'
 import {useEffect, useMemo, useState} from 'react'
 import './App.css'
@@ -284,48 +284,50 @@ const App = () => {
     const IconComponent = currentOp.icon
 
     return (
-        <div className='min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100'>
-            <div className='mx-auto max-w-6xl space-y-8  p-4'>
+        <div className='min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 pt-8 pb-16'>
+            <div className='mx-auto max-w-6xl space-y-10 p-4'>
                 {/* Header */}
-                <div className='text-center space-y-4'>
+                <div className='text-center space-y-6'>
                     <div
-                        className='inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-600 shadow-lg'>
-                        <Sparkles className='w-8 h-8 text-white'/>
+                        className='inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-600 shadow-lg transform hover:rotate-3 transition-all duration-300'>
+                        <Sparkles className='w-10 h-10 text-white animate-pulse-soft'/>
                     </div>
-                    <h1 className='text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent'>
+                    <h1 className='text-5xl font-bold bg-gradient-to-r from-indigo-700 to-purple-700 bg-clip-text text-transparent'>
                         PocketBase API Rule Builder
                     </h1>
-                    <p className='text-gray-600 text-lg'>Create powerful access control rules with visual simplicity</p>
+                    <p className='text-gray-600 text-xl max-w-xl mx-auto'>Create powerful access control rules with
+                        visual simplicity</p>
                 </div>
 
                 {/* Main Card */}
                 <div
-                    className='bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden'>
+                    className='glass rounded-3xl shadow-2xl border border-white/20 overflow-hidden animate-fade-in'>
                     {/* Operation Header */}
-                    <div className={`bg-gradient-to-r ${currentOp.color} p-6`}>
-                        <div className='flex items-center justify-between'>
-                            <div className='flex items-center gap-4'>
-                                <div className='p-3 bg-white/20 rounded-xl backdrop-blur-sm'>
-                                    <IconComponent className='w-6 h-6 text-white'/>
+                    <div className={`bg-gradient-to-r ${currentOp.color} p-8 relative overflow-hidden`}>
+                        <div className='absolute inset-0 bg-white/10 backdrop-blur-sm'></div>
+                        <div className='relative z-10 flex items-center justify-between'>
+                            <div className='flex items-center gap-5'>
+                                <div className='p-4 bg-white/20 rounded-xl backdrop-blur-sm shadow-lg'>
+                                    <IconComponent className='w-7 h-7 text-white'/>
                                 </div>
                                 <div>
-                                    <h2 className='text-2xl font-bold text-white'>{currentOp.label}</h2>
-                                    <p className='text-white/80'>Configure access rules for this operation</p>
+                                    <h2 className='text-3xl font-bold text-white'>{currentOp.label}</h2>
+                                    <p className='text-white/80 text-lg'>Configure access rules for this operation</p>
                                 </div>
                             </div>
                             <div className='flex items-center gap-3'>
                                 <button
                                     onClick={() => setShowSaveDialog(true)}
-                                    className='flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-all duration-200'
+                                    className='flex items-center gap-2 px-5 py-3 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-all duration-200 btn-gradient'
                                 >
-                                    <Save className='w-4 h-4'/>
+                                    <Save className='w-5 h-5'/>
                                     Save Preset
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <div className='p-8 space-y-8'>
+                    <div className='p-10 space-y-10'>
                         {/* Operation Type */}
                         <div className='space-y-3'>
                             <label className='text-sm font-semibold text-gray-700 uppercase tracking-wide'>
@@ -397,227 +399,6 @@ const App = () => {
                             </div>
                         )}
 
-                        {/* Quick Settings */}
-                        <div className='grid gap-6 lg:grid-cols-2'>
-                            {/* Authentication */}
-                            <div className='space-y-4'>
-                                <div
-                                    className='bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-200'>
-                                    <label className='flex items-center gap-3 cursor-pointer'>
-                                        <div className='relative'>
-                                            <input
-                                                type='checkbox'
-                                                checked={authenticated}
-                                                onChange={(e) => setAuthenticated(e.target.checked)}
-                                                className='sr-only'
-                                            />
-                                            <div
-                                                className={`w-6 h-6 rounded-lg border-2 transition-all duration-200 ${
-                                                    authenticated
-                                                        ? 'bg-emerald-500 border-emerald-500'
-                                                        : 'border-gray-300 bg-white'
-                                                }`}
-                                            >
-                                                {authenticated && (
-                                                    <Check className='w-4 h-4 text-white absolute top-1 left-1'/>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <span className='font-semibold text-gray-900'>Require Authentication</span>
-                                            <p className='text-sm text-gray-600 mt-1'>@request.auth.id != ""</p>
-                                        </div>
-                                    </label>
-                                </div>
-
-                                {/* Owner Field for Read Operations */}
-                                {isReadOperation && (
-                                    <div className='space-y-3'>
-                                        <label className='text-sm font-semibold text-gray-700'>
-                                            Match DB value to auth
-                                        </label>
-                                        <input
-                                            type='text'
-                                            value={ownerField}
-                                            onChange={(e) => setOwnerField(e.target.value)}
-                                            placeholder='e.g. author'
-                                            className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200'
-                                        />
-                                        <p className='text-sm text-gray-500'>
-                                            Used for GET operations. Ensures user can only read their own records.
-                                        </p>
-                                    </div>
-                                )}
-
-                                {/* Auth Match Field for Write Operations */}
-                                {isWriteOperation && (
-                                    <div className='space-y-3'>
-                                        <label className='text-sm font-semibold text-gray-700'>
-                                            Match payload value to auth
-                                        </label>
-                                        <input
-                                            type='text'
-                                            value={authMatchField}
-                                            onChange={(e) => setAuthMatchField(e.target.value)}
-                                            placeholder='e.g. author'
-                                            className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200'
-                                        />
-                                        <p className='text-sm text-gray-500'>
-                                            Used for POST/PUT. Ensures user is submitting their own ID.
-                                        </p>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Additional Fields */}
-                            <div className='space-y-4'>
-                                <div className='space-y-3'>
-                                    <label className='text-sm font-semibold text-gray-700'>Prevent Overwrite</label>
-                                    <div className='space-y-2'>
-                                        {lockFields.map((field, index) => (
-                                            <div key={index} className='flex items-center gap-2'>
-                                                <input
-                                                    type='text'
-                                                    value={field}
-                                                    onChange={(e) => {
-                                                        const newFields = [...lockFields]
-                                                        newFields[index] = e.target.value
-                                                        setLockFields(newFields)
-                                                    }}
-                                                    placeholder='e.g. role'
-                                                    className='flex-1 bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200'
-                                                />
-                                                <button
-                                                    onClick={() => {
-                                                        const newFields = lockFields.filter((_, i) => i !== index)
-                                                        setLockFields(newFields)
-                                                    }}
-                                                    className='flex items-center justify-center w-10 h-10 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors'
-                                                >
-                                                    <X className='w-4 h-4'/>
-                                                </button>
-                                            </div>
-                                        ))}
-                                        <button
-                                            onClick={() => setLockFields([...lockFields, ''])}
-                                            className='flex items-center gap-2 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors'
-                                        >
-                                            <Plus className='w-4 h-4'/>
-                                            Add Field to Lock
-                                        </button>
-                                    </div>
-                                    <p className='text-sm text-gray-500'>@request.body.fieldname:isset = false</p>
-                                </div>
-
-                                <div className='space-y-3'>
-                                    <label className='text-sm font-semibold text-gray-700'>
-                                        Extra Custom Condition
-                                    </label>
-                                    <input
-                                        value={extra}
-                                        onChange={(e) => setExtra(e.target.value)}
-                                        placeholder="e.g. status = 'active'"
-                                        className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200 resize-none'
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* ABAC Section */}
-                        <div
-                            className='bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-200'>
-                            <div className='space-y-6'>
-                                <div>
-                                    <h3 className='text-lg font-bold text-gray-900 mb-2'>ABAC Conditions</h3>
-                                    <p className='text-gray-600 text-sm'>
-                                        Attribute-based access control with chainable AND/OR logic
-                                    </p>
-                                </div>
-
-                                <div className='space-y-4'>
-                                    {abacConditions.map((abac, i) => (
-                                        <div key={i} className='space-y-3'>
-                                            {i > 0 && (
-                                                <div className='flex items-center justify-center'>
-                                                    <div
-                                                        className='flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-purple-200 shadow-sm'>
-                                                        <label className='flex items-center gap-2 cursor-pointer'>
-                                                            <input
-                                                                type='radio'
-                                                                name={`operator-${i}`}
-                                                                value='and'
-                                                                checked={abac.operator === 'and'}
-                                                                onChange={(e) =>
-                                                                    updateABAC(i, 'operator', e.target.value)
-                                                                }
-                                                                className='w-3 h-3 text-purple-600'
-                                                            />
-                                                            <span className='text-sm font-medium text-gray-700'>
-																AND
-															</span>
-                                                        </label>
-                                                        <label className='flex items-center gap-2 cursor-pointer'>
-                                                            <input
-                                                                type='radio'
-                                                                name={`operator-${i}`}
-                                                                value='or'
-                                                                checked={abac.operator === 'or'}
-                                                                onChange={(e) =>
-                                                                    updateABAC(i, 'operator', e.target.value)
-                                                                }
-                                                                className='w-3 h-3 text-purple-600'
-                                                            />
-                                                            <span className='text-sm font-medium text-gray-700'>
-																OR
-															</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            <div
-                                                className='grid gap-3 lg:grid-cols-4 p-4 bg-white rounded-xl border border-purple-200'>
-                                                <input
-                                                    type='text'
-                                                    value={abac.json}
-                                                    onChange={(e) => updateABAC(i, 'json', e.target.value)}
-                                                    placeholder='JSON field'
-                                                    className='bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 transition-colors'
-                                                />
-                                                <input
-                                                    type='text'
-                                                    value={abac.key}
-                                                    onChange={(e) => updateABAC(i, 'key', e.target.value)}
-                                                    placeholder='Key path ($.key)'
-                                                    className='bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 transition-colors'
-                                                />
-                                                <input
-                                                    type='text'
-                                                    value={abac.val}
-                                                    onChange={(e) => updateABAC(i, 'val', e.target.value)}
-                                                    placeholder='Expected value'
-                                                    className='bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 transition-colors'
-                                                />
-                                                <button
-                                                    onClick={() => removeABAC(i)}
-                                                    className='flex items-center justify-center px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors'
-                                                >
-                                                    <Trash2 className='w-4 h-4'/>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <button
-                                    onClick={addABAC}
-                                    className='flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl'
-                                >
-                                    <Plus className='w-4 h-4'/>
-                                    Add ABAC Condition
-                                </button>
-                            </div>
-                        </div>
-
                         {/* Real-World Scenarios */}
                         <div className='space-y-4'>
                             <div>
@@ -650,6 +431,293 @@ const App = () => {
                                 ))}
                             </div>
                         </div>
+
+                        {/* Quick Settings */}
+                        <div className='flex flex-col gap-4'>
+                            {/* Authentication */}
+                            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                <div
+                                    className='bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-5 border border-emerald-200 hover-card'>
+                                    <label className='flex items-center gap-4 cursor-pointer'>
+                                        <div className='relative checkbox-fancy ${authenticated ? "active" : ""}'>
+                                            <input
+                                                type='checkbox'
+                                                checked={authenticated}
+                                                onChange={(e) => setAuthenticated(e.target.checked)}
+                                                className='sr-only'
+                                            />
+                                            <div
+                                                className={`w-8 h-8 rounded-lg border-2 transition-all duration-300 shadow-sm ${
+                                                    authenticated
+                                                        ? 'bg-gradient-to-br from-emerald-500 to-teal-500 border-emerald-400'
+                                                        : 'border-gray-300 bg-white'
+                                                }`}
+                                            >
+                                                {authenticated && (
+                                                    <Check
+                                                        className='w-5 h-5 text-white absolute top-1.5 left-1.5 animate-fade-in'/>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span
+                                                className='font-semibold text-gray-900 text-lg'>Require Authentication</span>
+                                            <p className='text-gray-600 mt-1'>@request.auth.id != ""</p>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                {/* Owner Field for Read Operations */}
+                                {isReadOperation && (
+                                    <div className='space-y-3'>
+                                        <label className='text-sm font-semibold text-gray-700 flex items-center gap-2'>
+                                            <div
+                                                className='w-1 h-6 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full'></div>
+                                            Match DB value to auth
+                                        </label>
+                                        <div className='relative'>
+                                            <input
+                                                type='text'
+                                                value={ownerField}
+                                                onChange={(e) => setOwnerField(e.target.value)}
+                                                placeholder='e.g. author'
+                                                className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 input-enhanced input-fancy shadow-sm focus:shadow-md'
+                                            />
+                                            {ownerField && (
+                                                <div
+                                                    className='absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 bg-gray-50 px-1'>
+                                                    = @request.auth.id
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Auth Match Field for Write Operations */}
+                                {isWriteOperation && (
+                                    <div className='space-y-3'>
+                                        <label className='text-sm font-semibold text-gray-700 flex items-center gap-2'>
+                                            <div
+                                                className='w-1 h-6 bg-gradient-to-b from-purple-500 to-violet-500 rounded-full'></div>
+                                            Match payload value to auth
+                                        </label>
+                                        <div className='relative'>
+                                            <input
+                                                type='text'
+                                                value={authMatchField}
+                                                onChange={(e) => setAuthMatchField(e.target.value)}
+                                                placeholder='e.g. author'
+                                                className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 input-enhanced input-fancy shadow-sm focus:shadow-md'
+                                            />
+                                            {authMatchField && (
+                                                <div
+                                                    className='absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 bg-gray-50 px-1'>
+                                                    = @request.auth.id
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Additional Fields */}
+                            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                <div className='space-y-3'>
+                                    <div className={"flex flex-col gap-2 items-start"}>
+                                        <label className='text-sm font-semibold text-gray-700 flex items-center gap-2'>
+                                            <div
+                                                className='w-1 h-6 bg-gradient-to-b from-red-500 to-orange-500 rounded-full'></div>
+                                            Prevent Overwrite
+                                        </label>
+                                        <div className='flex flex-wrap gap-2 items-center'>
+                                            {lockFields.map((field, index) => (
+                                                <div key={index} className='flex items-center animate-slide-in'>
+                                                    <input
+                                                        type='text'
+                                                        value={field}
+                                                        onChange={(e) => {
+                                                            const newFields = [...lockFields]
+                                                            newFields[index] = e.target.value
+                                                            setLockFields(newFields)
+                                                        }}
+                                                        placeholder='e.g. role'
+                                                        className='flex-1 bg-gray-50 border-2 border-gray-200 rounded-xl h-10 max-w-fit px-4 py-3 border-r-0 rounded-r-none text-gray-900 placeholder-gray-500 input-enhanced input-fancy focus:z-10'
+                                                    />
+                                                    <button
+                                                        onClick={() => {
+                                                            const newFields = lockFields.filter((_, i) => i !== index)
+                                                            setLockFields(newFields)
+                                                        }}
+                                                        className='flex items-center justify-center w-10 h-10 bg-gradient-to-r from-red-500 to-red-600 border-l-0 rounded-l-none text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow hover:shadow-md btn-gradient'
+                                                    >
+                                                        <X className='w-4 h-4'/>
+                                                    </button>
+                                                </div>
+                                            ))}
+                                            {lockFields.length === 0 && (
+                                                <div className='text-sm text-gray-500 italic'>No fields added yet</div>
+                                            )}
+                                        </div>
+                                        <button
+                                            onClick={() => setLockFields([...lockFields, ''])}
+                                            className='flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-lg hover:from-indigo-600 hover:to-indigo-700 transition-all duration-200 shadow hover:shadow-md btn-gradient'
+                                        >
+                                            <Plus className='w-4 h-4'/>
+                                            Add Field to Lock
+                                        </button>
+                                    </div>
+                                    <p className='text-sm text-gray-500 flex items-center gap-1'>
+                                        <span className='bg-gray-200 px-1 rounded text-xs font-mono'>@request.body.fieldname:isset = false</span>
+                                    </p>
+                                </div>
+
+                                <div className='space-y-3'>
+                                    <label className='text-sm font-semibold text-gray-700 flex items-center gap-2'>
+                                        <div
+                                            className='w-1 h-6 bg-gradient-to-b from-amber-500 to-yellow-500 rounded-full'></div>
+                                        Extra Custom Condition
+                                    </label>
+                                    <div className='relative'>
+                                        <input
+                                            value={extra}
+                                            onChange={(e) => setExtra(e.target.value)}
+                                            placeholder="e.g. status = 'active'"
+                                            className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 input-enhanced input-fancy shadow-sm focus:shadow-md'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* ABAC Section */}
+                        <div
+                            className='bg-gradient-to-br from-purple-50 via-fuchsia-50 to-pink-50 rounded-2xl p-8 border border-purple-200 shadow-sm'>
+                            <div className='space-y-6'>
+                                <div className="flex items-start justify-between">
+                                    <div>
+                                        <h3 className='text-xl font-bold text-gray-900 mb-2 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent'>ABAC
+                                            Conditions</h3>
+                                        <p className='text-gray-600 text-sm'>
+                                            Attribute-based access control with chainable AND/OR logic
+                                        </p>
+                                    </div>
+                                    <div
+                                        className="p-2 bg-white/80 rounded-lg text-xs font-mono text-gray-500 border border-purple-100">
+                                        json_extract(field, '$.key') = value
+                                    </div>
+                                </div>
+
+                                <div className='space-y-6'>
+                                    {abacConditions.length === 0 && (
+                                        <div
+                                            className="text-center py-6 bg-white/60 backdrop-blur-sm rounded-xl border border-dashed border-purple-200">
+                                            <p className="text-gray-500 mb-2">No ABAC conditions defined</p>
+                                            <p className="text-sm text-gray-400">Add a condition to use JSON-based
+                                                attribute checks</p>
+                                        </div>
+                                    )}
+
+                                    {abacConditions.map((abac, i) => (
+                                        <div key={i} className='space-y-3 animate-fade-in'>
+                                            {i > 0 && (
+                                                <div className='flex items-center justify-center'>
+                                                    <div
+                                                        className='flex items-center gap-3 bg-white/70 backdrop-blur-sm px-5 py-2 rounded-full border border-purple-200 shadow-sm'>
+                                                        <label
+                                                            className={`flex items-center gap-2 cursor-pointer px-3 py-1 rounded-full transition-all duration-200 ${abac.operator === 'and' ? 'bg-indigo-100 text-indigo-700 shadow-sm' : 'bg-transparent text-gray-600'}`}>
+                                                            <input
+                                                                type='radio'
+                                                                name={`operator-${i}`}
+                                                                value='and'
+                                                                checked={abac.operator === 'and'}
+                                                                onChange={(e) =>
+                                                                    updateABAC(i, 'operator', e.target.value)
+                                                                }
+                                                                className='w-3 h-3 text-indigo-600 sr-only'
+                                                            />
+                                                            <span className='text-sm font-medium'>
+																AND
+															</span>
+                                                        </label>
+                                                        <label
+                                                            className={`flex items-center gap-2 cursor-pointer px-3 py-1 rounded-full transition-all duration-200 ${abac.operator === 'or' ? 'bg-pink-100 text-pink-700 shadow-sm' : 'bg-transparent text-gray-600'}`}>
+                                                            <input
+                                                                type='radio'
+                                                                name={`operator-${i}`}
+                                                                value='or'
+                                                                checked={abac.operator === 'or'}
+                                                                onChange={(e) =>
+                                                                    updateABAC(i, 'operator', e.target.value)
+                                                                }
+                                                                className='w-3 h-3 text-pink-600 sr-only'
+                                                            />
+                                                            <span className='text-sm font-medium'>
+																OR
+															</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            <div
+                                                className='grid gap-3 lg:grid-cols-4 p-5 bg-white rounded-xl border border-purple-200 shadow-sm hover:shadow-md transition-all duration-300 hover-card'>
+                                                <div className="space-y-1">
+                                                    <label className="text-xs text-gray-600 font-medium">JSON
+                                                        Field</label>
+                                                    <input
+                                                        type='text'
+                                                        value={abac.json}
+                                                        onChange={(e) => updateABAC(i, 'json', e.target.value)}
+                                                        placeholder='JSON field'
+                                                        className='w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 input-enhanced input-fancy'
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-xs text-gray-600 font-medium">Key
+                                                        Path</label>
+                                                    <input
+                                                        type='text'
+                                                        value={abac.key}
+                                                        onChange={(e) => updateABAC(i, 'key', e.target.value)}
+                                                        placeholder='$.key'
+                                                        className='w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 input-enhanced input-fancy'
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-xs text-gray-600 font-medium">Expected
+                                                        Value</label>
+                                                    <input
+                                                        type='text'
+                                                        value={abac.val}
+                                                        onChange={(e) => updateABAC(i, 'val', e.target.value)}
+                                                        placeholder='value'
+                                                        className='w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 input-enhanced input-fancy'
+                                                    />
+                                                </div>
+                                                <div className="flex items-end">
+                                                    <button
+                                                        onClick={() => removeABAC(i)}
+                                                        className='flex items-center justify-center gap-2 w-full px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-sm hover:shadow btn-gradient'
+                                                    >
+                                                        <Trash2 className='w-4 h-4'/>
+                                                        Remove
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <button
+                                    onClick={addABAC}
+                                    className='flex items-center justify-center w-full gap-2 px-4 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl btn-gradient'
+                                >
+                                    <Plus className='w-5 h-5'/>
+                                    Add ABAC Condition
+                                </button>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
