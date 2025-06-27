@@ -480,7 +480,7 @@ const App = () => {
                                                 type='text'
                                                 value={ownerField}
                                                 onChange={(e) => setOwnerField(e.target.value)}
-                                                placeholder='e.g. author'
+                                                placeholder='author'
                                                 className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 input-enhanced input-fancy shadow-sm focus:shadow-md'
                                             />
                                             {ownerField && (
@@ -506,7 +506,7 @@ const App = () => {
                                                 type='text'
                                                 value={authMatchField}
                                                 onChange={(e) => setAuthMatchField(e.target.value)}
-                                                placeholder='e.g. author'
+                                                placeholder='author'
                                                 className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 input-enhanced input-fancy shadow-sm focus:shadow-md'
                                             />
                                             {authMatchField && (
@@ -540,7 +540,7 @@ const App = () => {
                                                             newFields[index] = e.target.value
                                                             setLockFields(newFields)
                                                         }}
-                                                        placeholder='e.g. role'
+                                                        placeholder='role'
                                                         className='flex-1 bg-gray-50 border-2 border-gray-200 rounded-xl h-10 max-w-fit px-4 py-3 border-r-0 rounded-r-none text-gray-900 placeholder-gray-500 input-enhanced input-fancy focus:z-10'
                                                     />
                                                     <button
@@ -581,7 +581,7 @@ const App = () => {
                                         <input
                                             value={extra}
                                             onChange={(e) => setExtra(e.target.value)}
-                                            placeholder="e.g. status = 'active'"
+                                            placeholder="status = 'active' || type != 'admin'"
                                             className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 input-enhanced input-fancy shadow-sm focus:shadow-md'
                                         />
                                     </div>
@@ -595,7 +595,7 @@ const App = () => {
                             <div className='space-y-6'>
                                 <div className="flex items-start justify-between">
                                     <div>
-                                        <h3 className='text-xl font-bold text-gray-900 mb-2 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent'>ABAC
+                                        <h3 className='text-xl font-bold text-gray-900 mb-2 bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text'>ABAC
                                             Conditions</h3>
                                         <p className='text-gray-600 text-sm'>
                                             Attribute-based access control with chainable AND/OR logic
@@ -667,7 +667,7 @@ const App = () => {
                                                         type='text'
                                                         value={abac.json}
                                                         onChange={(e) => updateABAC(i, 'json', e.target.value)}
-                                                        placeholder='JSON field'
+                                                        placeholder='@collection.team_members'
                                                         className='w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 input-enhanced input-fancy'
                                                     />
                                                 </div>
@@ -678,7 +678,7 @@ const App = () => {
                                                         type='text'
                                                         value={abac.key}
                                                         onChange={(e) => updateABAC(i, 'key', e.target.value)}
-                                                        placeholder='$.key'
+                                                        placeholder='$.can_edit'
                                                         className='w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 input-enhanced input-fancy'
                                                     />
                                                 </div>
@@ -689,7 +689,7 @@ const App = () => {
                                                         type='text'
                                                         value={abac.val}
                                                         onChange={(e) => updateABAC(i, 'val', e.target.value)}
-                                                        placeholder='value'
+                                                        placeholder='true'
                                                         className='w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-200 input-enhanced input-fancy'
                                                     />
                                                 </div>
@@ -767,7 +767,7 @@ const App = () => {
                                     type='text'
                                     value={newPresetName}
                                     onChange={(e) => setNewPresetName(e.target.value)}
-                                    placeholder='e.g. My Custom Rule'
+                                    placeholder='My Custom Rule'
                                     className='w-full mt-2 bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200'
                                     onKeyPress={(e) => e.key === 'Enter' && saveCurrentPreset()}
                                 />
