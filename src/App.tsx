@@ -82,7 +82,7 @@ const App = () => {
 	useEffect(() => {
 		const loadScenarios = async () => {
 			try {
-				const response = await fetch('/src/scenarios.json')
+				const response = await fetch('/scenarios.json')
 				if (!response.ok) throw new Error('Failed to load scenarios.json')
 				const data = await response.json()
 				setScenarios(data)
