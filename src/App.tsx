@@ -102,9 +102,6 @@ const App = () => {
 		createdAt: string
 	}
 
-	// Helper to trim spaces and newlines from both ends
-	const trimField = (val: string) => val.replace(/^\s+|\s+$/g, '')
-
 	// Load saved presets from localStorage on component mount
 	useEffect(() => {
 		try {
@@ -150,16 +147,16 @@ const App = () => {
 		if (scenario && scenario.config) {
 			const config = scenario.config
 			setAuthenticated(config.authenticated || false)
-			setOwnerField(trimField(config.ownerField || ''))
-			setLockFields((config.lockFields || []).map((f: string) => trimField(f)))
-			setAuthMatchField(trimField(config.authMatchField || ''))
-			setExtra(trimField(config.extra || ''))
+			setOwnerField(config.ownerField || '')
+			setLockFields((config.lockFields || []).map((f: string) => f))
+			setAuthMatchField(config.authMatchField || '')
+			setExtra(config.extra || '')
 			setAbacConditions(
 				(config.abacConditions || []).map((c: ABACCondition) => ({
 					...c,
-					json: trimField(c.json || ''),
-					key: trimField(c.key || ''),
-					val: trimField(c.val || ''),
+					json: c.json || '',
+					key: c.key || '',
+					val: c.val || '',
 				}))
 			)
 		}
@@ -168,15 +165,15 @@ const App = () => {
 	const getCurrentConfig = () => ({
 		operation,
 		authenticated,
-		ownerField: trimField(ownerField),
-		lockFields: lockFields.map((f: string) => trimField(f)).filter(Boolean),
-		authMatchField: trimField(authMatchField),
-		extra: trimField(extra),
+		ownerField: ownerField,
+		lockFields: lockFields.map((f: string) => f).filter(Boolean),
+		authMatchField: authMatchField,
+		extra: extra,
 		abacConditions: abacConditions.map((c) => ({
 			...c,
-			json: trimField(c.json || ''),
-			key: trimField(c.key || ''),
-			val: trimField(c.val || ''),
+			json: c.json || '',
+			key: c.key || '',
+			val: c.val || '',
 		})),
 	})
 
@@ -199,16 +196,16 @@ const App = () => {
 	const loadPreset = (presetConfig: Preset) => {
 		setOperation(presetConfig.operation as Operation)
 		setAuthenticated(presetConfig.config.authenticated || false)
-		setOwnerField(trimField(presetConfig.config.ownerField || ''))
-		setLockFields((presetConfig.config.lockFields || []).map((f: string) => trimField(f)))
-		setAuthMatchField(trimField(presetConfig.config.authMatchField || ''))
-		setExtra(trimField(presetConfig.config.extra || ''))
+		setOwnerField(presetConfig.config.ownerField || '')
+		setLockFields((presetConfig.config.lockFields || []).map((f: string) => f))
+		setAuthMatchField(presetConfig.config.authMatchField || '')
+		setExtra(presetConfig.config.extra || '')
 		setAbacConditions(
 			(presetConfig.config.abacConditions || []).map((c) => ({
 				...c,
-				json: trimField(c.json || ''),
-				key: trimField(c.key || ''),
-				val: trimField(c.val || ''),
+				json: c.json || '',
+				key: c.key || '',
+				val: c.val || '',
 			}))
 		)
 		setPreset(`saved-${presetConfig.id}`)
@@ -231,7 +228,7 @@ const App = () => {
 
 	const updateABAC = (index: number, field: string, value: string) => {
 		const updated = [...abacConditions]
-		updated[index][field as keyof (typeof updated)[number]] = trimField(value)
+		updated[index][field as keyof (typeof updated)[number]] = value
 		setAbacConditions(updated)
 	}
 
@@ -239,15 +236,23 @@ const App = () => {
 		const parts = []
 		if (authenticated) parts.push('@request.auth.id != ""')
 		if (isReadOperation && ownerField.trim()) parts.push(`${ownerField} = @request.auth.id`)
-		if (isWriteOperation && authMatchField.trim()) parts.push(`@request.data.${authMatchField} = @request.auth.id`)
+		if (isWriteOperation && authMatchField.trim()) parts.push(`@request.body.${authMatchField} = @request.auth.id`)
 		lockFields.forEach((f) => {
-			if (f.trim()) parts.push(`@request.data.${f}:isset = false`)
+			if (f.trim()) parts.push(`@request.body.${f}:isset = false`)
 		})
 		if (extra.trim()) parts.push(`(${extra})`)
 		const abacs = abacConditions
 			.filter((c) => c.json && c.key && c.val)
 			.map((c, index) => {
-				const condition = `json_extract(${c.json}, '${c.key}') = ${c.val}`
+				let val = c.val
+				if (
+					!/^[-+]?\d*\.?\d+$/.test(val) &&
+					!(val.startsWith('"') && val.endsWith('"')) &&
+					!(val.startsWith("'") && val.endsWith("'"))
+				) {
+					val = `"${val.replace(/^["']|["']$/g, '')}"`
+				}
+				const condition = `json_extract(${c.json}, '${c.key}') = ${val}`
 				if (index === 0) return condition
 				return `${c.operator === 'or' ? ' || ' : ' && '}${condition}`
 			})
@@ -430,7 +435,7 @@ const App = () => {
 										<input
 											type='text'
 											value={ownerField}
-											onChange={(e) => setOwnerField(trimField(e.target.value))}
+											onChange={(e) => setOwnerField(e.target.value)}
 											placeholder='e.g. author'
 											className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200'
 										/>
@@ -449,7 +454,7 @@ const App = () => {
 										<input
 											type='text'
 											value={authMatchField}
-											onChange={(e) => setAuthMatchField(trimField(e.target.value))}
+											onChange={(e) => setAuthMatchField(e.target.value)}
 											placeholder='e.g. author'
 											className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200'
 										/>
@@ -467,29 +472,23 @@ const App = () => {
 									<input
 										type='text'
 										value={lockFields.join(', ')}
-										onChange={(e) =>
-											setLockFields(
-												e.target.value
-													.split(',')
-													.map((f: string) => trimField(f))
-													.filter(Boolean)
-											)
-										}
+										onChange={(e) => {
+											setLockFields(e.target.value.split(',').map((f) => f.trim()))
+										}}
 										placeholder='e.g. role, status, created_at'
 										className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200'
 									/>
-									<p className='text-sm text-gray-500'>@request.data.role:isset = false</p>
+									<p className='text-sm text-gray-500'>@request.body.role:isset = false</p>
 								</div>
 
 								<div className='space-y-3'>
 									<label className='text-sm font-semibold text-gray-700'>
 										Extra Custom Condition
 									</label>
-									<textarea
+									<input
 										value={extra}
-										onChange={(e) => setExtra(trimField(e.target.value))}
+										onChange={(e) => setExtra(e.target.value)}
 										placeholder="e.g. status = 'active'"
-										rows={3}
 										className='w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 transition-all duration-200 resize-none'
 									/>
 								</div>
@@ -549,21 +548,21 @@ const App = () => {
 												<input
 													type='text'
 													value={abac.json}
-													onChange={(e) => updateABAC(i, 'json', trimField(e.target.value))}
+													onChange={(e) => updateABAC(i, 'json', e.target.value)}
 													placeholder='JSON field'
 													className='bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 transition-colors'
 												/>
 												<input
 													type='text'
 													value={abac.key}
-													onChange={(e) => updateABAC(i, 'key', trimField(e.target.value))}
+													onChange={(e) => updateABAC(i, 'key', e.target.value)}
 													placeholder='Key path ($.key)'
 													className='bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 transition-colors'
 												/>
 												<input
 													type='text'
 													value={abac.val}
-													onChange={(e) => updateABAC(i, 'val', trimField(e.target.value))}
+													onChange={(e) => updateABAC(i, 'val', e.target.value)}
 													placeholder='Expected value'
 													className='bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-purple-500 transition-colors'
 												/>
