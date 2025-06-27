@@ -2,10 +2,6 @@
 
 A visual tool for building and testing [PocketBase](https://pocketbase.io/) API access rules. Easily create, preview, and save complex access control rules for your PocketBase collections using an intuitive web interface.
 
-![PocketBase Logo](src/assets/pocketbase.svg)
-
----
-
 ## Features
 
 -   **Visual Rule Builder**: Compose access rules for List, View, Create, Update, and Delete operations.

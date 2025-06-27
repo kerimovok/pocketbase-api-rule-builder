@@ -36,10 +36,33 @@ const App = () => {
 	const [showSaveDialog, setShowSaveDialog] = useState(false)
 	const [newPresetName, setNewPresetName] = useState('')
 
+	type ABACCondition = {
+		json: string
+		key: string
+		val: string
+		operator: string
+	}
+	type ScenarioConfig = {
+		authenticated?: boolean
+		ownerField?: string
+		lockFields?: string[]
+		authMatchField?: string
+		extra?: string
+		abacConditions?: ABACCondition[]
+	}
+	type Scenario = {
+		name: string
+		description: string
+		config: ScenarioConfig
+	}
+	type Operation = 'listRule' | 'viewRule' | 'createRule' | 'updateRule' | 'deleteRule'
+	type ScenariosType = Record<Operation, Scenario[]>
+
+	const [scenarios, setScenarios] = useState<ScenariosType>({} as ScenariosType)
+	const [scenariosLoaded, setScenariosLoaded] = useState(false)
+
 	const isReadOperation = ['listRule', 'viewRule'].includes(operation)
 	const isWriteOperation = ['createRule', 'updateRule'].includes(operation)
-
-	type Operation = 'listRule' | 'viewRule' | 'createRule' | 'updateRule' | 'deleteRule'
 
 	interface OperationConfig {
 		label: string
@@ -55,229 +78,21 @@ const App = () => {
 		deleteRule: { label: 'Delete Record', icon: Trash2, color: 'from-red-500 to-pink-500' },
 	}
 
-	interface ABACCondition {
-		json: string
-		key: string
-		val: string
-		operator: string
-	}
-
-	interface ScenarioConfig {
-		authenticated?: boolean
-		ownerField?: string
-		lockFields?: string[]
-		authMatchField?: string
-		extra?: string
-		abacConditions?: ABACCondition[]
-	}
-
-	interface Scenario {
-		name: string
-		description: string
-		config: ScenarioConfig
-	}
-
-	const scenarios: Record<Operation, Scenario[]> = {
-		listRule: [
-			{
-				name: '📋 User Posts List',
-				description: "List posts - public posts + user's private posts",
-				config: {
-					authenticated: true,
-					ownerField: 'author_id',
-					extra: "status = 'published'",
-					lockFields: [],
-					abacConditions: [
-						{
-							json: 'privacy_settings',
-							key: '$.visibility',
-							val: "'public'",
-							operator: 'or',
-						},
-					],
-				},
-			},
-			{
-				name: '🔒 Admin Only List',
-				description: 'Only users with admin role can list records',
-				config: {
-					authenticated: true,
-					extra: "@request.auth.role = 'admin'",
-				},
-			},
-			{
-				name: '🌐 Guest Public List',
-				description: 'Allow unauthenticated users to list public records',
-				config: {
-					authenticated: false,
-					extra: "visibility = 'public'",
-				},
-			},
-		],
-		viewRule: [
-			{
-				name: '👁️ Document View',
-				description: 'View document - owner or shared access',
-				config: {
-					authenticated: true,
-					ownerField: 'owner_id',
-					extra: "visibility = 'public'",
-					lockFields: [],
-					abacConditions: [
-						{
-							json: 'shared_with',
-							key: '$[*].user_id',
-							val: '@request.auth.id',
-							operator: 'or',
-						},
-						{
-							json: 'permissions',
-							key: '$.read',
-							val: 'true',
-							operator: 'or',
-						},
-					],
-				},
-			},
-			{
-				name: '🔒 Admin View Only',
-				description: 'Only admins can view records',
-				config: {
-					authenticated: true,
-					extra: "@request.auth.role = 'admin'",
-				},
-			},
-			{
-				name: '🌐 Public View',
-				description: 'Anyone can view public records',
-				config: {
-					authenticated: false,
-					extra: "visibility = 'public'",
-				},
-			},
-		],
-		createRule: [
-			{
-				name: '➕ Create Blog Post',
-				description: 'Create post - set author to current user',
-				config: {
-					authenticated: true,
-					authMatchField: 'author_id',
-					lockFields: ['id'],
-					extra: "status = 'draft'",
-					abacConditions: [
-						{
-							json: '@request.auth.profile',
-							key: '$.canCreatePosts',
-							val: 'true',
-							operator: 'and',
-						},
-					],
-				},
-			},
-			{
-				name: '👥 Team Member Create',
-				description: 'Only team members can create records',
-				config: {
-					authenticated: true,
-					abacConditions: [
-						{
-							json: '@request.auth.teams',
-							key: '$[*].id',
-							val: 'project_id',
-							operator: 'or',
-						},
-					],
-				},
-			},
-			{
-				name: '🔒 Admin Create Only',
-				description: 'Only admins can create records',
-				config: {
-					authenticated: true,
-					extra: "@request.auth.role = 'admin'",
-				},
-			},
-		],
-		updateRule: [
-			{
-				name: '✏️ Update Project',
-				description: 'Update project - owner or team member with edit rights',
-				config: {
-					authenticated: true,
-					authMatchField: 'updated_by',
-					lockFields: ['created_at'],
-					extra: 'owner_id = @request.auth.id',
-					abacConditions: [
-						{
-							json: 'team_members',
-							key: '$[*].user_id',
-							val: '@request.auth.id',
-							operator: 'or',
-						},
-						{
-							json: 'team_members[?(@.user_id == @request.auth.id)]',
-							key: '$.permissions.canEdit',
-							val: 'true',
-							operator: 'and',
-						},
-					],
-				},
-			},
-			{
-				name: '⏰ Update Before Deadline',
-				description: 'Allow updates only before deadline',
-				config: {
-					authenticated: true,
-					extra: 'deadline > now()',
-				},
-			},
-			{
-				name: '🛡️ Owner Update Only',
-				description: 'Only the owner can update',
-				config: {
-					authenticated: true,
-					ownerField: 'owner_id',
-				},
-			},
-		],
-		deleteRule: [
-			{
-				name: '🗑️ Delete Order',
-				description: 'Delete order - owner only, not if processed',
-				config: {
-					authenticated: true,
-					ownerField: 'customer_id',
-					extra: "status != 'processed' && status != 'shipped'",
-					lockFields: [],
-					abacConditions: [
-						{
-							json: 'metadata',
-							key: '$.canDelete',
-							val: 'true',
-							operator: 'and',
-						},
-					],
-				},
-			},
-			{
-				name: '🔒 Admin Delete Only',
-				description: 'Only admins can delete records',
-				config: {
-					authenticated: true,
-					extra: "@request.auth.role = 'admin'",
-				},
-			},
-			{
-				name: '🟢 Delete If Not Processed',
-				description: 'Allow delete if status is not processed',
-				config: {
-					authenticated: true,
-					extra: "status != 'processed'",
-				},
-			},
-		],
-	}
+	// Load scenarios from external JSON file
+	useEffect(() => {
+		const loadScenarios = async () => {
+			try {
+				const response = await fetch('/src/scenarios.json')
+				if (!response.ok) throw new Error('Failed to load scenarios.json')
+				const data = await response.json()
+				setScenarios(data)
+				setScenariosLoaded(true)
+			} catch (e) {
+				console.error('Failed to load scenarios.json', e)
+			}
+		}
+		loadScenarios()
+	}, [])
 
 	interface Preset {
 		id: string
@@ -328,6 +143,7 @@ const App = () => {
 	}
 
 	const applyScenario = (index: number) => {
+		if (!scenariosLoaded) return
 		const scenario = scenarios[operation as Operation][index]
 		setPreset(`${operation}-scenario-${index}`)
 		resetConfig()
@@ -339,7 +155,7 @@ const App = () => {
 			setAuthMatchField(trimField(config.authMatchField || ''))
 			setExtra(trimField(config.extra || ''))
 			setAbacConditions(
-				(config.abacConditions || []).map((c) => ({
+				(config.abacConditions || []).map((c: ABACCondition) => ({
 					...c,
 					json: trimField(c.json || ''),
 					key: trimField(c.key || ''),
@@ -783,7 +599,7 @@ const App = () => {
 								</p>
 							</div>
 							<div className='grid gap-3 md:grid-cols-2 lg:grid-cols-3'>
-								{scenarios[operation as Operation].map((scenario, idx) => (
+								{scenarios[operation as Operation]?.map((scenario: Scenario, idx: number) => (
 									<button
 										key={idx}
 										onClick={() => applyScenario(idx)}
