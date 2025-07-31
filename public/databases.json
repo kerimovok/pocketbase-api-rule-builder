@@ -1,0 +1,1075 @@
+[
+	{
+		"name": "Task Management Platform",
+		"schemas": [
+			{
+				"id": "pbc_484305853",
+				"listRule": "",
+				"viewRule": "",
+				"createRule": "",
+				"updateRule": "",
+				"deleteRule": "",
+				"name": "projects",
+				"type": "base",
+				"fields": [
+					{
+						"autogeneratePattern": "[a-z0-9]{15}",
+						"hidden": false,
+						"id": "text3208210256",
+						"max": 15,
+						"min": 15,
+						"name": "id",
+						"pattern": "^[a-z0-9]+$",
+						"presentable": false,
+						"primaryKey": true,
+						"required": true,
+						"system": true,
+						"type": "text"
+					},
+					{
+						"autogeneratePattern": "",
+						"hidden": false,
+						"id": "text1704208859",
+						"max": 1,
+						"min": 1,
+						"name": "icon",
+						"pattern": "",
+						"presentable": false,
+						"primaryKey": false,
+						"required": true,
+						"system": false,
+						"type": "text"
+					},
+					{
+						"autogeneratePattern": "",
+						"hidden": false,
+						"id": "text1579384326",
+						"max": 0,
+						"min": 0,
+						"name": "name",
+						"pattern": "",
+						"presentable": false,
+						"primaryKey": false,
+						"required": true,
+						"system": false,
+						"type": "text"
+					},
+					{
+						"cascadeDelete": true,
+						"collectionId": "pbc_1568971955",
+						"hidden": false,
+						"id": "relation3303056927",
+						"maxSelect": 1,
+						"minSelect": 0,
+						"name": "team",
+						"presentable": false,
+						"required": true,
+						"system": false,
+						"type": "relation"
+					},
+					{
+						"hidden": false,
+						"id": "autodate2990389176",
+						"name": "created",
+						"onCreate": true,
+						"onUpdate": false,
+						"presentable": false,
+						"system": false,
+						"type": "autodate"
+					},
+					{
+						"hidden": false,
+						"id": "autodate3332085495",
+						"name": "updated",
+						"onCreate": true,
+						"onUpdate": true,
+						"presentable": false,
+						"system": false,
+						"type": "autodate"
+					}
+				],
+				"indexes": [],
+				"system": false
+			},
+			{
+				"id": "pbc_1219621782",
+				"listRule": "",
+				"viewRule": "",
+				"createRule": "",
+				"updateRule": "",
+				"deleteRule": "",
+				"name": "tags",
+				"type": "base",
+				"fields": [
+					{
+						"autogeneratePattern": "[a-z0-9]{15}",
+						"hidden": false,
+						"id": "text3208210256",
+						"max": 15,
+						"min": 15,
+						"name": "id",
+						"pattern": "^[a-z0-9]+$",
+						"presentable": false,
+						"primaryKey": true,
+						"required": true,
+						"system": true,
+						"type": "text"
+					},
+					{
+						"autogeneratePattern": "",
+						"hidden": false,
+						"id": "text1579384326",
+						"max": 0,
+						"min": 0,
+						"name": "name",
+						"pattern": "",
+						"presentable": false,
+						"primaryKey": false,
+						"required": true,
+						"system": false,
+						"type": "text"
+					},
+					{
+						"autogeneratePattern": "",
+						"hidden": false,
+						"id": "text1716930793",
+						"max": 0,
+						"min": 0,
+						"name": "color",
+						"pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$",
+						"presentable": false,
+						"primaryKey": false,
+						"required": false,
+						"system": false,
+						"type": "text"
+					},
+					{
+						"hidden": false,
+						"id": "autodate2990389176",
+						"name": "created",
+						"onCreate": true,
+						"onUpdate": false,
+						"presentable": false,
+						"system": false,
+						"type": "autodate"
+					},
+					{
+						"hidden": false,
+						"id": "autodate3332085495",
+						"name": "updated",
+						"onCreate": true,
+						"onUpdate": true,
+						"presentable": false,
+						"system": false,
+						"type": "autodate"
+					}
+				],
+				"indexes": [],
+				"system": false
+			},
+			{
+				"id": "pbc_2602490748",
+				"listRule": "",
+				"viewRule": "",
+				"createRule": "",
+				"updateRule": "",
+				"deleteRule": "",
+				"name": "tasks",
+				"type": "base",
+				"fields": [
+					{
+						"autogeneratePattern": "[a-z0-9]{15}",
+						"hidden": false,
+						"id": "text3208210256",
+						"max": 15,
+						"min": 15,
+						"name": "id",
+						"pattern": "^[a-z0-9]+$",
+						"presentable": false,
+						"primaryKey": true,
+						"required": true,
+						"system": true,
+						"type": "text"
+					},
+					{
+						"autogeneratePattern": "",
+						"hidden": false,
+						"id": "text1579384326",
+						"max": 0,
+						"min": 0,
+						"name": "name",
+						"pattern": "",
+						"presentable": false,
+						"primaryKey": false,
+						"required": true,
+						"system": false,
+						"type": "text"
+					},
+					{
+						"convertURLs": false,
+						"hidden": false,
+						"id": "editor1843675174",
+						"maxSize": 0,
+						"name": "description",
+						"presentable": false,
+						"required": false,
+						"system": false,
+						"type": "editor"
+					},
+					{
+						"hidden": false,
+						"id": "select2063623452",
+						"maxSelect": 1,
+						"name": "status",
+						"presentable": false,
+						"required": true,
+						"system": false,
+						"type": "select",
+						"values": ["todo", "ongoing", "paused", "canceled", "done"]
+					},
+					{
+						"hidden": false,
+						"id": "select1655102503",
+						"maxSelect": 1,
+						"name": "priority",
+						"presentable": false,
+						"required": false,
+						"system": false,
+						"type": "select",
+						"values": ["high", "medium", "low"]
+					},
+					{
+						"hidden": false,
+						"id": "date3742343818",
+						"max": "",
+						"min": "",
+						"name": "due",
+						"presentable": false,
+						"required": false,
+						"system": false,
+						"type": "date"
+					},
+					{
+						"cascadeDelete": false,
+						"collectionId": "_pb_users_auth_",
+						"hidden": false,
+						"id": "relation2090728460",
+						"maxSelect": 1,
+						"minSelect": 0,
+						"name": "assignee",
+						"presentable": false,
+						"required": false,
+						"system": false,
+						"type": "relation"
+					},
+					{
+						"cascadeDelete": true,
+						"collectionId": "pbc_484305853",
+						"hidden": false,
+						"id": "relation800313582",
+						"maxSelect": 1,
+						"minSelect": 0,
+						"name": "project",
+						"presentable": false,
+						"required": true,
+						"system": false,
+						"type": "relation"
+					},
+					{
+						"cascadeDelete": false,
+						"collectionId": "pbc_1219621782",
+						"hidden": false,
+						"id": "relation1874629670",
+						"maxSelect": 999,
+						"minSelect": 0,
+						"name": "tags",
+						"presentable": false,
+						"required": false,
+						"system": false,
+						"type": "relation"
+					},
+					{
+						"hidden": false,
+						"id": "autodate2990389176",
+						"name": "created",
+						"onCreate": true,
+						"onUpdate": false,
+						"presentable": false,
+						"system": false,
+						"type": "autodate"
+					},
+					{
+						"hidden": false,
+						"id": "autodate3332085495",
+						"name": "updated",
+						"onCreate": true,
+						"onUpdate": true,
+						"presentable": false,
+						"system": false,
+						"type": "autodate"
+					}
+				],
+				"indexes": [],
+				"system": false
+			},
+			{
+				"id": "pbc_1568971955",
+				"listRule": "",
+				"viewRule": "",
+				"createRule": "",
+				"updateRule": "",
+				"deleteRule": "",
+				"name": "teams",
+				"type": "base",
+				"fields": [
+					{
+						"autogeneratePattern": "[a-z0-9]{15}",
+						"hidden": false,
+						"id": "text3208210256",
+						"max": 15,
+						"min": 15,
+						"name": "id",
+						"pattern": "^[a-z0-9]+$",
+						"presentable": false,
+						"primaryKey": true,
+						"required": true,
+						"system": true,
+						"type": "text"
+					},
+					{
+						"autogeneratePattern": "",
+						"hidden": false,
+						"id": "text1579384326",
+						"max": 0,
+						"min": 0,
+						"name": "name",
+						"pattern": "",
+						"presentable": false,
+						"primaryKey": false,
+						"required": true,
+						"system": false,
+						"type": "text"
+					},
+					{
+						"cascadeDelete": false,
+						"collectionId": "_pb_users_auth_",
+						"hidden": false,
+						"id": "relation1168167679",
+						"maxSelect": 999,
+						"minSelect": 0,
+						"name": "members",
+						"presentable": false,
+						"required": false,
+						"system": false,
+						"type": "relation"
+					},
+					{
+						"hidden": false,
+						"id": "autodate2990389176",
+						"name": "created",
+						"onCreate": true,
+						"onUpdate": false,
+						"presentable": false,
+						"system": false,
+						"type": "autodate"
+					},
+					{
+						"hidden": false,
+						"id": "autodate3332085495",
+						"name": "updated",
+						"onCreate": true,
+						"onUpdate": true,
+						"presentable": false,
+						"system": false,
+						"type": "autodate"
+					}
+				],
+				"indexes": [],
+				"system": false
+			}
+		],
+		"presets": [
+			{
+				"name": "Team-based Collaboration",
+				"rules": {
+					"projects": {
+						"listRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "project-list-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "project-list-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "team"
+											},
+											{
+												"id": "project-list-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "project-list-abac",
+										"name": "View Permission",
+										"conditions": [
+											{
+												"id": "project-list-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canViewProject",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"viewRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "project-view-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "project-view-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "team"
+											},
+											{
+												"id": "project-view-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "project-view-abac",
+										"name": "View Permission",
+										"conditions": [
+											{
+												"id": "project-view-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canViewProject",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"createRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "project-create-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "project-create-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "@request.body.team"
+											},
+											{
+												"id": "project-create-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "project-create-abac",
+										"name": "Create Permission",
+										"conditions": [
+											{
+												"id": "project-create-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canCreateProject",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"updateRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "project-update-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "project-update-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "team"
+											},
+											{
+												"id": "project-update-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "project-update-abac",
+										"name": "Edit Permission",
+										"conditions": [
+											{
+												"id": "project-update-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canEditProject",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"deleteRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "project-delete-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "project-delete-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "team"
+											},
+											{
+												"id": "project-delete-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "project-delete-abac",
+										"name": "Delete Permission",
+										"conditions": [
+											{
+												"id": "project-delete-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canDeleteProject",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						}
+					},
+					"tasks": {
+						"listRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "task-list-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "task-list-cond-1",
+												"operand1": "@collection.projects.id",
+												"operator": "?=",
+												"operand2": "project"
+											},
+											{
+												"id": "task-list-cond-2",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "@collection.projects.team"
+											},
+											{
+												"id": "task-list-cond-3",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "task-list-abac",
+										"name": "View Permission",
+										"conditions": [
+											{
+												"id": "task-list-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canViewTask",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"viewRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "task-view-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "task-view-cond-1",
+												"operand1": "@collection.projects.id",
+												"operator": "?=",
+												"operand2": "project"
+											},
+											{
+												"id": "task-view-cond-2",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "@collection.projects.team"
+											},
+											{
+												"id": "task-view-cond-3",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "task-view-abac",
+										"name": "View Permission",
+										"conditions": [
+											{
+												"id": "task-view-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canViewTask",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"createRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "task-create-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "task-create-cond-1",
+												"operand1": "@collection.projects.id",
+												"operator": "?=",
+												"operand2": "@request.body.project"
+											},
+											{
+												"id": "task-create-cond-2",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "@collection.projects.team"
+											},
+											{
+												"id": "task-create-cond-3",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "task-create-abac",
+										"name": "Create Permission",
+										"conditions": [
+											{
+												"id": "task-create-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canCreateTask",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"updateRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "task-update-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "task-update-cond-1",
+												"operand1": "@collection.projects.id",
+												"operator": "?=",
+												"operand2": "project"
+											},
+											{
+												"id": "task-update-cond-2",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "@collection.projects.team"
+											},
+											{
+												"id": "task-update-cond-3",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "task-update-abac",
+										"name": "Edit Permission",
+										"conditions": [
+											{
+												"id": "task-update-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canEditTask",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"deleteRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "task-delete-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "task-delete-cond-1",
+												"operand1": "@collection.projects.id",
+												"operator": "?=",
+												"operand2": "project"
+											},
+											{
+												"id": "task-delete-cond-2",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "@collection.projects.team"
+											},
+											{
+												"id": "task-delete-cond-3",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "task-delete-abac",
+										"name": "Delete Permission",
+										"conditions": [
+											{
+												"id": "task-delete-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canDeleteTask",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						}
+					},
+					"teams": {
+						"listRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "team-list-view-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "team-list-view-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "id"
+											},
+											{
+												"id": "team-list-view-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "team-list-view-abac",
+										"name": "View Permission",
+										"conditions": [
+											{
+												"id": "team-list-view-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canViewTeam",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"viewRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "team-view-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "team-view-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "id"
+											},
+											{
+												"id": "team-view-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "team-view-abac",
+										"name": "View Permission",
+										"conditions": [
+											{
+												"id": "team-view-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canViewTeam",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"createRule": {
+							"authenticated": true
+						},
+						"updateRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "team-update-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "team-update-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "id"
+											},
+											{
+												"id": "team-update-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "team-update-abac",
+										"name": "Edit Permission",
+										"conditions": [
+											{
+												"id": "team-update-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canEditTeam",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						},
+						"deleteRule": {
+							"authenticated": true,
+							"groupedCustomConditions": {
+								"groups": [
+									{
+										"id": "team-delete-custom",
+										"name": "Team Member",
+										"conditions": [
+											{
+												"id": "team-delete-cond-1",
+												"operand1": "@collection.team_members.team",
+												"operator": "?=",
+												"operand2": "id"
+											},
+											{
+												"id": "team-delete-cond-2",
+												"operand1": "@collection.team_members.user",
+												"operator": "?=",
+												"operand2": "@request.auth.id"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							},
+							"groupedAbacConditions": {
+								"groups": [
+									{
+										"id": "team-delete-abac",
+										"name": "Delete Permission",
+										"conditions": [
+											{
+												"id": "team-delete-abac-cond",
+												"operand1": "team_members.permissions",
+												"operand2": "$.canDeleteTeam",
+												"operand3": "true"
+											}
+										],
+										"internalLogic": "and",
+										"logic": "and"
+									}
+								]
+							}
+						}
+					},
+					"tags": {
+						"listRule": { "authenticated": true },
+						"viewRule": { "authenticated": true },
+						"createRule": { "authenticated": true },
+						"updateRule": { "authenticated": true },
+						"deleteRule": { "authenticated": true }
+					}
+				}
+			}
+		]
+	}
+]
