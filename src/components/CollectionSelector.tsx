@@ -34,7 +34,7 @@ export const CollectionSelector = () => {
 	const handleCollectionChange = (collectionName: string) => {
 		if (collectionName !== currentCollection) {
 			const currentPreset = currentPresetId
-				? getCurrentPresets().find((p, i) => i.toString() === currentPresetId)
+				? getCurrentPresets().find((_, i) => i.toString() === currentPresetId)
 				: null
 
 			setCurrentCollection(collectionName)

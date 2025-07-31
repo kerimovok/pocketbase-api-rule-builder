@@ -247,7 +247,7 @@ export const useRuleBuilderStore = create<RuleBuilderState & RuleBuilderActions>
 			setOperation: (operation) => {
 				const { currentPresetId, getCurrentPresets, currentCollection } = get()
 				const currentPreset = currentPresetId
-					? getCurrentPresets().find((p, i) => i.toString() === currentPresetId)
+					? getCurrentPresets().find((_, i) => i.toString() === currentPresetId)
 					: null
 
 				set({ operation })

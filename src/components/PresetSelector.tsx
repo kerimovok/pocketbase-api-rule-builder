@@ -43,7 +43,7 @@ export const PresetSelector = ({ onSavePreset }: PresetSelectorProps) => {
 	const currentDatabase = getCurrentDatabase()
 	const allPresets = getCurrentPresets()
 	const operationPresets = getPresetsForOperation(operation, currentCollection)
-	const currentPreset = currentPresetId ? allPresets.find((p, i) => i.toString() === currentPresetId) : null
+	const currentPreset = currentPresetId ? allPresets.find((_, i) => i.toString() === currentPresetId) : null
 
 	if (!currentDatabase) {
 		return null
